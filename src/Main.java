@@ -23,7 +23,9 @@ public class Main {
 		
 		while (true)
 		{
-			msgBus.sendMessage(new Message(s.nextLine()));
+			Message msg = cmd.parseMessage(s.nextLine().split(" ")); 
+			if (msg != null)
+				msgBus.sendMessage(msg);
 		}
 	}
 
