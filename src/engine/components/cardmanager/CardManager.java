@@ -9,15 +9,26 @@ import java.util.logging.Logger;
 import engine.Component;
 import engine.Message;
 
+
+/**
+ * The CardManager Component is responsible for Card data storage, retrieval and manipulation
+ * @author sasszem
+ *
+ */
 public class CardManager extends Component {
 
+	/**
+	 * The Decks, stored by their name
+	 */
 	private HashMap<String, Deck> decks;
 
+	
 	private static boolean initiated = false;
 	private static Logger LOGGER = Logger.getLogger("CardManager");
 	
 	private final static String decksPath = "./data/decks.json";
 	private final static String cardsPath = "./data/cards.json";
+	
 	
 	@Override
 	public void handleMessage(Message msg) {
@@ -51,6 +62,7 @@ public class CardManager extends Component {
 			throw new Exception("CardManager already initiated");
 	}
 
+	
 	public CardManager() {
 		super();
 		try {

@@ -7,6 +7,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+/**
+ * CardsFactory loads and parses the contents of a Card descriptor file, creates the cards and places them in a Deck
+ * @author sasszem
+ *
+ */
 public class CardsFactory {
 	
 	private static int id = 1;
