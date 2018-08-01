@@ -18,7 +18,7 @@ public class CardsFactory {
 	
 	private static int id = 1;
 	
-	private static Logger LOGGER = Logger.getLogger("CardsFactory");
+	private static Logger LOGGER = Logger.getLogger("CardManager][CardsFactory");
 
 	
 	/**

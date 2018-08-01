@@ -2,6 +2,7 @@ package engine.components.cardmanager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * The Deck is used to store Cards
@@ -11,9 +12,13 @@ import java.util.List;
 public class Deck {
 	private List<Card> cards;
 
+	private String name;
 	
-	public Deck() {
+	private static Logger LOGGER = Logger.getLogger("CardManager][Deck");
+	
+	public Deck(String name) {
 		this.cards = new ArrayList<Card>();
+		this.name =name;
 	}
 
 	/**
@@ -23,6 +28,7 @@ public class Deck {
 	public void addCard(Card card)
 	{
 		this.cards.add(card);
+		Deck.LOGGER.info("Added Card#"+card.getId()+" to Deck \""+this.name+"\"");
 	}
 	
 	/**
@@ -32,5 +38,11 @@ public class Deck {
 	public void removeCard(Card card)
 	{
 		this.cards.remove(card);
+		Deck.LOGGER.info("Removed Card#"+card.getId()+" from Deck \""+this.name+"\"");
+
+	}
+
+	public String getName() {
+		return name;
 	}
 }

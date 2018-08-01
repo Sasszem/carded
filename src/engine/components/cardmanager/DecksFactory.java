@@ -17,7 +17,7 @@ public class DecksFactory {
 	 * @throws FileNotFoundException when the specified file does not exists 
 	 */
 	
-	private static Logger LOGGER = Logger.getLogger("DecksFactory");
+	private static Logger LOGGER = Logger.getLogger("CardManager][DecksFactory");
 	
 	public static void parseFile(String path, HashMap<String, Deck> decks) throws FileNotFoundException
 	{
@@ -29,7 +29,7 @@ public class DecksFactory {
 		{
 			String name = (String) deckNameRaw;
 			
-			Deck deck = new Deck();
+			Deck deck = new Deck(name);
 			
 			decks.put(name, deck);
 			DecksFactory.LOGGER.info("Created new Deck with name\""+name+"\"");
