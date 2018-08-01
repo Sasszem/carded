@@ -3,6 +3,7 @@ package engine.components.cardmanager;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONTokener;
@@ -15,6 +16,9 @@ public class DecksFactory {
 	 * @param decks The HashMap to insert the decks into
 	 * @throws FileNotFoundException when the specified file does not exists 
 	 */
+	
+	private static Logger LOGGER = Logger.getLogger("DecksFactory");
+	
 	public static void parseFile(String path, HashMap<String, Deck> decks) throws FileNotFoundException
 	{
 		// Load JSON
@@ -28,6 +32,7 @@ public class DecksFactory {
 			Deck deck = new Deck();
 			
 			decks.put(name, deck);
+			DecksFactory.LOGGER.info("Created new Deck with name\""+name+"\"");
 		}
 	}
 }
