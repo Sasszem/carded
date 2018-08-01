@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 /**
  * The single-channel messagebus of the engine.
@@ -10,11 +11,12 @@ import java.util.HashMap;
 public class MessageBus {
 	
 	private HashMap<String, Component> components;
-	
+	private static Logger LOGGER = Logger.getLogger("MessageBus");
 	
 	
 	public MessageBus() {
 		this.components = new HashMap<String, Component>();
+		MessageBus.LOGGER.info("Creation complete");
 	}
 
 	/**
@@ -24,6 +26,7 @@ public class MessageBus {
 	 */
 	public void registerComponent(Component comp, String name)
 	{
+		MessageBus.LOGGER.info(String.format("Registered a new component(%s) with name %s", comp.toString(), name));
 		this.components.put(name, comp);
 	}
 	
@@ -33,6 +36,7 @@ public class MessageBus {
 	 */
 	public void sendMessage(Message msg)
 	{
+		MessageBus.LOGGER.info("[ Message ]"+msg.toString());
 		for (Component com: components.values() )
 		{
 			com.handleMessage(msg);
