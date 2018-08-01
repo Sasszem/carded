@@ -18,4 +18,11 @@ public class Commandline extends Component {
 	{
 		System.out.println(msg.type);
 	}
+	
+	public Message parseMessage(String[] line)
+	{
+		if (line[0].equals("init"))
+			return new Message("init");
+		return null;
+	}
 }
