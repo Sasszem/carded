@@ -2,6 +2,8 @@ package engine.components.cardmanager;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.logging.Logger;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +17,9 @@ import org.json.JSONTokener;
 public class CardsFactory {
 	
 	private static int id = 1;
+	
+	private static Logger LOGGER = Logger.getLogger("CardManager][CardsFactory");
+
 	
 	/**
 	 * Loads the contents of a card description file, creates the described Cards and inserts them into a target Deck
@@ -49,6 +54,8 @@ public class CardsFactory {
 			
 			card.finishCreation();
 			target.addCard(card);
+			CardsFactory.LOGGER.info("Created new Card("+card.toString()+")");
+
 		}
 	}
 }

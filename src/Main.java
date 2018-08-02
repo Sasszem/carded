@@ -1,4 +1,11 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Scanner;
+import java.util.logging.LogManager;
+
+import java.util.logging.Logger;
 
 import engine.Message;
 import engine.MessageBus;
@@ -12,6 +19,20 @@ import engine.components.cardmanager.CardManager;
  */
 public class Main {
 
+	static {
+	      InputStream stream;
+		try {
+			stream = new FileInputStream("./logging.properties");
+			LogManager.getLogManager().readConfiguration(stream);
+
+		} catch (SecurityException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private static Logger LOGGER = Logger.getLogger("Main");
+	
 	public Main() {
 		// TODO Auto-generated constructor stub
 		MessageBus msgBus = new MessageBus();
@@ -20,6 +41,8 @@ public class Main {
 		msgBus.registerComponent(cmd, "cmd");
 		msgBus.registerComponent(cm, "cm");
 		Scanner s = new Scanner(System.in);
+		
+		Main.LOGGER.info("Init complete, entering main loop...");
 		
 		while (true)
 		{

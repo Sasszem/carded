@@ -65,12 +65,6 @@ public class CardManager extends Component {
 	
 	public CardManager() {
 		super();
-		try {
-			CardManager.LOGGER.addHandler(new FileHandler("./logs/cardManager.log", true));
-		} catch (SecurityException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		this.decks = new HashMap<String, Deck>();
 	}
 

@@ -1,6 +1,7 @@
 package engine.components.cardmanager;
 
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 
 /**
@@ -13,6 +14,8 @@ public class Card {
 	private Integer id;
 	private HashMap<String, String> attributes;
 	private Boolean created = false;
+	
+	private static Logger LOGGER = Logger.getLogger("CardManager][Card");
 	
 	/**
 	 * Set the current Deck the Card is in. Used when moving a Card from one deck to another
@@ -49,6 +52,7 @@ public class Card {
 		super();
 		this.id = id;
 		this.attributes = new HashMap<String, String>();
+		Card.LOGGER.info("New Card created with ID "+id);
 	}
 	
 	/**
@@ -70,9 +74,11 @@ public class Card {
 		if (!this.created)
 		{
 			this.attributes.put(key, value);
+			Card.LOGGER.info("Set \""+key +"\" attribute of Card#"+this.id+" to "+value);
 		}
 		else
 		{
+			Card.LOGGER.severe("Attempted to write the attributes of a finished Card!");
 			throw new CardException("Creation of Card#"+this.id+" is already over, attributes field is not writeable!");
 		}
 	}
@@ -83,6 +89,7 @@ public class Card {
 	public void finishCreation() {
 		// TODO Auto-generated method stub
 		this.created = true;
+		Card.LOGGER.info("Finished the creation of Card#"+this.id);
 	}
 	
 	/**
@@ -92,7 +99,9 @@ public class Card {
 	public void moveTo(Deck deck)
 	{
 		this.deck.removeCard(this);
+		String oldName = this.deck.getName();
 		deck.addCard(this);
 		this.setDeck(deck);
+		Card.LOGGER.info("Moved Card#"+id+" from Deck \""+oldName+"\" to Deck \""+deck.getName()+"\"");
 	}
 }
