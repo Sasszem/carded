@@ -1,13 +1,18 @@
 package engine.components.cardmanager;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.logging.FileHandler;
+import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import engine.Component;
 import engine.Message;
+import engine.MessageBus;
+import engine.messages.DataQuery;
+import engine.messages.QueryResponse;
 
 
 /**
@@ -17,11 +22,13 @@ import engine.Message;
  */
 public class CardManager extends Component {
 
+	
 	/**
 	 * The Decks, stored by their name
 	 */
 	private HashMap<String, Deck> decks;
 
+	private MessageBus MESSAGEBUS;
 	
 	private static boolean initiated = false;
 	private static Logger LOGGER = Logger.getLogger("CardManager");
@@ -45,7 +52,30 @@ public class CardManager extends Component {
 				e.printStackTrace();
 			}
 			break;
+			case "DataQuery":
+				this.handleDataQuery(msg);
+				break;
 		
+		}
+	}
+
+	private void handleDataQuery(Message msg) {
+		DataQuery query = (DataQuery)msg;
+		List<String> url = Arrays.asList(query.url.split("[.]"));
+		System.out.println(query.toString()+url.toString());
+		System.out.println(url.get(0));
+		System.out.println(url.get(1));
+		if (Objects.equals(url.get(0),"CM"))
+		{
+
+			switch (url.get(1))
+			{
+				case "decksList":
+					List<String> data = new ArrayList<String>(this.decks.keySet());
+					QueryResponse<List<String>> response = new QueryResponse<List<String>>(data, query.getId());
+					this.MESSAGEBUS.sendMessage(response);
+				break;
+			}
 		}
 	}
 
@@ -54,7 +84,15 @@ public class CardManager extends Component {
 		{
 			LOGGER.info("Initiating...");
 			DecksFactory.parseFile(CardManager.decksPath, this.decks);
-			CardsFactory.parseFile(CardManager.cardsPath, (Deck) this.decks.values().toArray()[0]);
+			
+			Deck firstDeck = (Deck) this.decks.values().toArray()[0];
+			
+			CardsFactory.parseFile(CardManager.cardsPath, firstDeck);
+			
+			List<Deck> decksList = new ArrayList<Deck>();
+			decksList.addAll(this.decks.values());
+
+			
 			initiated = true;
 			LOGGER.info("Init complete!");
 		}
@@ -63,8 +101,10 @@ public class CardManager extends Component {
 	}
 
 	
-	public CardManager() {
+	public CardManager(MessageBus msgb) {
 		super();
+		this.MESSAGEBUS = msgb;
+		msgb.registerComponent(this, "CM");
 		this.decks = new HashMap<String, Deck>();
 	}
 
