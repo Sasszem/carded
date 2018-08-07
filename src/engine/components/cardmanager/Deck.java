@@ -45,4 +45,9 @@ public class Deck {
 	public String getName() {
 		return name;
 	}
+
+	public List<Card> listCards() {
+		// TODO Auto-generated method stub
+		return this.cards;
+	}
 }
