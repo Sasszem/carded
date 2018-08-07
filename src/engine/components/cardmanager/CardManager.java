@@ -89,10 +89,6 @@ public class CardManager extends Component {
 			
 			CardsFactory.parseFile(CardManager.cardsPath, firstDeck);
 			
-			List<Deck> decksList = new ArrayList<Deck>();
-			decksList.addAll(this.decks.values());
-
-			
 			initiated = true;
 			LOGGER.info("Init complete!");
 		}
