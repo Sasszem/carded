@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 import java.util.logging.LogManager;
-
 import java.util.logging.Logger;
 
 import engine.Message;
@@ -34,12 +33,14 @@ public class Main {
 	private static Logger LOGGER = Logger.getLogger("Main");
 	
 	public Main() {
-		// TODO Auto-generated constructor stub
+	}
+
+	public void mainLoop()
+	{
 		MessageBus msgBus = new MessageBus();
-		Commandline cmd = new Commandline();
-		CardManager cm = new CardManager();
-		msgBus.registerComponent(cmd, "cmd");
-		msgBus.registerComponent(cm, "cm");
+		Commandline cmd = new Commandline(msgBus);
+		new CardManager(msgBus);
+		@SuppressWarnings("resource")
 		Scanner s = new Scanner(System.in);
 		
 		Main.LOGGER.info("Init complete, entering main loop...");
@@ -51,7 +52,7 @@ public class Main {
 				msgBus.sendMessage(msg);
 		}
 	}
-
+	
 	/**
 	 * The main function
 	 * @param args command-line args
@@ -59,6 +60,7 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Main m = new Main();
+		m.mainLoop();
 	}
 
 }

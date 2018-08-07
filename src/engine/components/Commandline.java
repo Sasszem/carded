@@ -1,6 +1,8 @@
 package engine.components;
 
 import engine.Message;
+import engine.MessageBus;
+import engine.messages.DataQuery;
 import engine.Component;
 
 /**
@@ -9,20 +11,33 @@ import engine.Component;
  *
  */
 public class Commandline extends Component {
-
-	public Commandline() {
-		// TODO Auto-generated constructor stub
+	
+	private MessageBus MESSAGEBUS;
+	
+	public Commandline(MessageBus bus) {
+		this.MESSAGEBUS = bus;
+		bus.registerComponent(this, "Commandline");
 	}
 	
 	public void handleMessage(Message msg)
 	{
-		System.out.println(msg.type);
+		//System.out.println(msg.type);
 	}
 	
+	public void parseLine(String[] line)
+	{
+		Message msg = this.parseMessage(line);
+		this.MESSAGEBUS.sendMessage(msg);
+	}
 	public Message parseMessage(String[] line)
 	{
-		if (line[0].equals("init"))
-			return new Message("init");
-		return null;
+		switch(line[0])
+		{
+		case "GET":
+			DataQuery msg = new DataQuery(line[1]);
+			return msg;
+		default:
+			return new Message(line[0]);
+		}
 	}
 }
