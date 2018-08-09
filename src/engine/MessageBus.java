@@ -46,16 +46,4 @@ public class MessageBus {
 			com.handleMessage(msg);
 		}
 	}
-	
-	public void sendMessage(Message msg, String to)
-	{
-		if (this.components.containsKey(to))
-		{
-			this.components.get(to).handleMessage(msg);
-			MessageBus.LOGGER.info("[ Message ]"+"[ TO: "+to+"]"+msg.toString());
-		}
-		else
-			MessageBus.LOGGER.severe(String.format("[ Message ] No such component %s%n%s",to,new Throwable().getStackTrace()));
-	}
-	
 }
