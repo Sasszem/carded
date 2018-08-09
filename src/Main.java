@@ -10,6 +10,7 @@ import engine.Message;
 import engine.MessageBus;
 import engine.components.Commandline;
 import engine.components.cardmanager.CardManager;
+import engine.components.lua.LuaComponent;
 
 
 /**
@@ -40,6 +41,7 @@ public class Main {
 		MessageBus msgBus = new MessageBus();
 		Commandline cmd = new Commandline(msgBus);
 		new CardManager(msgBus);
+		new LuaComponent(msgBus);
 		@SuppressWarnings("resource")
 		Scanner s = new Scanner(System.in);
 		
