@@ -13,5 +13,13 @@ public abstract class Component {
 	 * @param msg the message to handle
 	 */
 	public abstract void handleMessage(Message msg);
+	
+	protected MessageBus MESSAGEBUS;
 
+	public Component(MessageBus mESSAGEBUS) {
+		super();
+		MESSAGEBUS = mESSAGEBUS;
+	}
+	
+	
 }

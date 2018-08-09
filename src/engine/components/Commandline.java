@@ -11,11 +11,9 @@ import engine.Component;
  *
  */
 public class Commandline extends Component {
-	
-	private MessageBus MESSAGEBUS;
-	
+		
 	public Commandline(MessageBus bus) {
-		this.MESSAGEBUS = bus;
+		super(bus);
 		bus.registerComponent(this, "Commandline");
 	}
 	

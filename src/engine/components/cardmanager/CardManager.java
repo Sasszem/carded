@@ -27,8 +27,6 @@ public class CardManager extends Component {
 	 * The Decks, stored by their name
 	 */
 	private HashMap<String, Deck> decks;
-
-	private MessageBus MESSAGEBUS;
 	
 	private static boolean initiated = false;
 	private static Logger LOGGER = Logger.getLogger("CardManager");
@@ -98,8 +96,7 @@ public class CardManager extends Component {
 
 	
 	public CardManager(MessageBus msgb) {
-		super();
-		this.MESSAGEBUS = msgb;
+		super(msgb);
 		msgb.registerComponent(this, "CM");
 		this.decks = new HashMap<String, Deck>();
 	}
